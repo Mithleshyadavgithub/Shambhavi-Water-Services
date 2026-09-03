@@ -228,9 +228,10 @@ async function processWithRuleEngine(userMessage, context, sessionId) {
     }
 
     return {
-      response: `Your order is ready! Click the button below to pay ₹${cart.total} securely via Razorpay. 🔒`,
+      response: `Your order **${order.orderNumber || ''}** is ready! Click the button below to complete payment of ₹${cart.total} securely via Razorpay or choose Cash on Delivery. 💧`,
       type: 'PAYMENT_READY',
       orderId: order.orderId,
+      orderNumber: order.orderNumber,
       amount: cart.total,
       toolCalls,
       sessionId,

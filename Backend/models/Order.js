@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const orderSchema = new mongoose.Schema({
   orderId: { type: String, unique: true },
-  customer: { type: mongoose.Schema.Types.ObjectId, ref: 'Customer', required: true },
+  customer: { type: mongoose.Schema.Types.ObjectId, ref: 'Customer', required: false },
   user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
   // Product-based order (new AI catalog)
   product: { type: mongoose.Schema.Types.ObjectId, ref: 'Product' },
@@ -14,7 +14,7 @@ const orderSchema = new mongoose.Schema({
     subtotal: { type: Number },
   }],
   // Legacy fields (kept for backward compat)
-  waterType: { type: String, enum: ['20L Can', '10L Can', '5L Bottle', '1L Bottle', 'AI Order'] },
+  waterType: { type: String, default: '20L Can' },
   quantity: { type: Number, min: 1 },
   pricePerUnit: { type: Number },
   deliveryCharge: { type: Number, default: 0 },

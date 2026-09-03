@@ -50,8 +50,12 @@ exports.chat = async (req, res) => {
     // Keep history manageable
     if (session.history.length > 20) session.history = session.history.slice(-20);
 
-    // Update pending cart if present
-    if (result.pendingCart) session.pendingCart = result.pendingCart;
+    // Update pending cart if present, or clear if order is created
+    if (result.type === 'PAYMENT_READY') {
+      session.pendingCart = null;
+    } else if (result.pendingCart) {
+      session.pendingCart = result.pendingCart;
+    }
     sessions.set(sid, session);
 
     // Log AI recommendation to audit trail
@@ -75,6 +79,7 @@ exports.chat = async (req, res) => {
       response: result.response,
       type: result.type || 'text',
       orderId: result.orderId || null,
+      orderNumber: result.orderNumber || null,
       amount: result.amount || null,
       data: result.data || null,
       suggestions: result.suggestions || [],
