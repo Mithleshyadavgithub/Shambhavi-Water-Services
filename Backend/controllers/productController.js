@@ -5,7 +5,7 @@ exports.getProducts = async (req, res) => {
   try {
     const { search, category, customerType, active = true, page = 1, limit = 20 } = req.query;
     const query = {};
-    if (active !== 'all') query.active = active === 'true';
+    if (active !== 'all') query.active = String(active) === 'true';
     if (category) query.category = category;
     if (customerType) query.customerTypes = customerType;
     if (search) {

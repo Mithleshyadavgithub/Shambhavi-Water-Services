@@ -92,8 +92,9 @@ export default function CustomerDashboard() {
   const [recentOrders, setRecentOrders] = useState([]);
 
   useEffect(() => {
-    if (user && user.customerId) {
-      api.get(`/orders?customer=${user.customerId}&limit=5`)
+    const cid = typeof user?.customerId === 'object' ? user.customerId?._id : (user?.customerId || user?._id);
+    if (cid && typeof cid === 'string') {
+      api.get(`/orders?customer=${cid}&limit=5`)
         .then(res => {
           if (res.data.success) {
             setRecentOrders(res.data.data);

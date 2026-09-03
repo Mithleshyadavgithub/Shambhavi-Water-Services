@@ -1,0 +1,10 @@
+{
+  "name": "shambhavi-water-services",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "install-backend": "npm --prefix Backend install",
+    "build": "npm --prefix Backend install",
+    "start": "node Backend/server.js"
+  }
+}

@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const mongoose = require('mongoose');
 const Order = require('../models/Order');
 const Customer = require('../models/Customer');
 
@@ -26,7 +27,14 @@ exports.getOrders = async (req, res) => {
     const query = {};
     if (status) query.status = status;
     if (area) query.area = area;
-    if (customer) query.customer = customer;
+    if (customer && customer !== '[object Object]' && customer !== 'undefined' && customer !== 'null') {
+      if (mongoose.Types.ObjectId.isValid(customer)) {
+        query.customer = customer;
+      } else {
+        const found = await Customer.findOne({ $or: [{ customerId: customer }, { phone: customer }] });
+        if (found) query.customer = found._id;
+      }
+    }
 
     const total = await Order.countDocuments(query);
     const orders = await Order.find(query)

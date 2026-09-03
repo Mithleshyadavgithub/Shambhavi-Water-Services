@@ -25,8 +25,9 @@ export default function MyOrders() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (user && user.customerId) {
-      api.get(`/orders?customer=${user.customerId}`)
+    const cid = typeof user?.customerId === 'object' ? user.customerId?._id : (user?.customerId || user?._id);
+    if (cid && typeof cid === 'string') {
+      api.get(`/orders?customer=${cid}`)
         .then(res => {
           if (res.data.success) {
             setOrders(res.data.data);
@@ -34,6 +35,8 @@ export default function MyOrders() {
         })
         .catch(err => console.error(err))
         .finally(() => setLoading(false));
+    } else {
+      setLoading(false);
     }
   }, [user]);
 
