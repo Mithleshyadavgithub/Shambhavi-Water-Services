@@ -18,11 +18,14 @@ const connectDB = async () => {
     }
 
     if (!uri) {
-      throw new Error('MONGO_URI environment variable is missing or empty.');
+      throw new Error('MONGO_URI is not defined or is empty.');
     }
 
+    const hostPart = uri.includes('@') ? uri.split('@')[1] : uri.slice(0, 20);
+    console.log(`🔌 Connecting to MongoDB host: ${hostPart}...`);
+
     const conn = await mongoose.connect(uri, {
-      serverSelectionTimeoutMS: 5000
+      serverSelectionTimeoutMS: 8000
     });
     console.log(`✅ MongoDB Connected: ${conn.connection.host}`);
   } catch (err) {
