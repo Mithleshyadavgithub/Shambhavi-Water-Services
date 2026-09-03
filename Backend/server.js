@@ -98,6 +98,20 @@ app.get('/catalog.json', (req, res) => {
   });
 });
 
+app.get('/', (req, res) => {
+  res.json({
+    status: 'online',
+    message: 'Shambhavi Water Services API is running',
+    version: '1.0.0',
+    endpoints: {
+      products: '/api/products',
+      orders: '/api/orders',
+      customers: '/api/customers',
+      aiChat: '/api/ai/chat'
+    }
+  });
+});
+
 app.get('/.well-known/ai-plugin.json', (req, res) => {
   res.json({
     "schema_version": "v1",
