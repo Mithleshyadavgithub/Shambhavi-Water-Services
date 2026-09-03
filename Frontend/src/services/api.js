@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-// In production on Vercel, use VITE_API_URL pointing to Render backend. In local dev, use relative /api with Vite proxy.
-const rawBaseUrl = import.meta.env.VITE_API_URL || '';
+// In production on Vercel, use VITE_API_URL or VITE_BACKEND_URL pointing to Render backend. In local dev, use relative /api with Vite proxy.
+const rawBaseUrl = import.meta.env.VITE_API_URL || import.meta.env.VITE_BACKEND_URL || '';
 const baseURL = rawBaseUrl 
   ? (rawBaseUrl.endsWith('/api') ? rawBaseUrl : `${rawBaseUrl.replace(/\/$/, '')}/api`) 
   : '/api';
