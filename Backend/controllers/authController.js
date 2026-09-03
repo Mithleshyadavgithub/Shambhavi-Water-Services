@@ -2,8 +2,11 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 const Customer = require('../models/Customer');
 
+const JWT_SECRET = process.env.JWT_SECRET || 'shambhavi_water_jwt_secret_key_2026_super_secure';
+const JWT_EXPIRE = process.env.JWT_EXPIRE || '7d';
+
 const generateToken = (id) =>
-  jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRE });
+  jwt.sign({ id }, JWT_SECRET, { expiresIn: JWT_EXPIRE });
 
 // @route POST /api/auth/register
 exports.register = async (req, res) => {
@@ -29,7 +32,17 @@ exports.register = async (req, res) => {
     }
 
     const token = generateToken(user._id);
-    res.status(201).json({ success: true, token, user: { id: user._id, name: user.name, email: user.email, role: user.role } });
+    res.status(201).json({ 
+      success: true, 
+      token, 
+      user: { 
+        id: user._id, 
+        name: user.name, 
+        email: user.email, 
+        role: user.role, 
+        customerId: user.customerId 
+      } 
+    });
   } catch (err) {
     res.status(500).json({ success: false, message: err.message });
   }
