@@ -13,12 +13,10 @@ const mongoose = require('mongoose');
 
 // ─────────────────────────────────────────────────────────────
 const FALLBACK_CATALOG = [
-  { id: '65e000000000000000000001', name: '20L Signature Water Can', category: 'Jar', size: '20L', price: 40, mrp: 50, stock: 150, inStock: true, subscriptionAvailable: true, subscriptionPrice: 32, subscriptionDiscount: 20, aiDescription: '8-stage RO+UV purified water in returnable food-grade 20L can.' },
-  { id: '65e000000000000000000002', name: '18L Milton Style Dispenser', category: 'Jar', size: '18L', price: 40, mrp: 50, stock: 80, inStock: true, subscriptionAvailable: true, subscriptionPrice: 32, subscriptionDiscount: 20, aiDescription: 'Insulated 18L Milton dispenser style water can.' },
-  { id: '65e000000000000000000003', name: '2L Pure Spring Bottle', category: 'Bottle', size: '2L', price: 20, mrp: 25, stock: 200, inStock: true, subscriptionAvailable: false, subscriptionPrice: null, subscriptionDiscount: 0, aiDescription: 'Portable 2L bottle with balanced minerals.' },
-  { id: '65e000000000000000000004', name: '1L Pure Drinking Bottle', category: 'Bottle', size: '1L', price: 10, mrp: 15, stock: 350, inStock: true, subscriptionAvailable: false, subscriptionPrice: null, subscriptionDiscount: 0, aiDescription: 'Single-serve 1L mineral water bottle.' },
-  { id: '65e000000000000000000005', name: 'Heavy-Duty Dispenser Stand', category: 'Accessory', size: 'Unit', price: 250, mrp: 350, stock: 45, inStock: true, subscriptionAvailable: false, subscriptionPrice: null, subscriptionDiscount: 0, aiDescription: 'Ergonomic chrome-plated floor stand with tap.' },
-  { id: '65e000000000000000000006', name: 'Automatic Electric Water Pump', category: 'Accessory', size: 'Unit', price: 350, mrp: 499, stock: 30, inStock: true, subscriptionAvailable: false, subscriptionPrice: null, subscriptionDiscount: 0, aiDescription: 'USB rechargeable automatic water pump for 20L cans.' }
+  { id: '65e000000000000000000001', name: '1L Bottle', category: 'water-bottle', size: '1L', price: 10, mrp: 15, stock: 500, inStock: true, aiDescription: 'RO Purified 1L single-serve mineral water bottle at ₹10.' },
+  { id: '65e000000000000000000002', name: '2L Bottle', category: 'water-bottle', size: '2L', price: 20, mrp: 25, stock: 350, inStock: true, aiDescription: 'RO Purified 2L reusable bottle with handle at ₹20.' },
+  { id: '65e000000000000000000003', name: '18L Can', category: 'water-jar', size: '18L', price: 40, mrp: 50, stock: 200, inStock: true, aiDescription: '18L Milton dispenser style heavy-duty water can with tap at ₹40.' },
+  { id: '65e000000000000000000004', name: '20L Can', category: 'water-jar', size: '20L', price: 40, mrp: 50, stock: 400, inStock: true, aiDescription: 'RO Purified & UV Sterilized 20L signature water can at ₹40.' }
 ];
 
 // CATALOG TOOLS

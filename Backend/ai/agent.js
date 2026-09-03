@@ -203,7 +203,7 @@ async function processWithRuleEngine(userMessage, context, sessionId) {
   // 1. GREETING
   if (/^(hi|hello|hey|namaste|hii|helo|greetings|hola|kya hal hai|shuru karo)\b/i.test(msg) && msg.length < 25) {
     return {
-      response: `Hey ${context.customerName || 'there'}! 🌟 Welcome to **Shambhavi Water Services** — Lucknow's fastest and freshest water delivery! 💧\n\nI'm your **Friendly AI Guide**, here to make your life super easy. You can chat with me naturally to do just about anything:\n\n• ✨ **Discover Everything**: Let me show you around our services & subscriptions!\n• 🧮 **Water Calculator**: Tell me how many people you have, and I'll calculate your daily needs!\n• 📦 **Shop Products**: Browse our 20L jars, handy 1L bottles, or smart dispensers.\n• 🚚 **Live Track Order**: Just ask "Where is my order?" to see your van on the GPS map!\n• 💎 **Purity Details**: Curious? Ask me about our awesome 8-Stage RO+UV process.\n• 📍 **Delivery Zones**: Check if we deliver to your neighborhood.\n• 📋 **My Orders & Payments**: Instantly pull up your past bills or clear pending dues.\n• 🛠️ **Quick Support**: Got an issue? Let me file a priority ticket for you right away!\n\nSo, how can I help you hydrate today? 😄`,
+      response: `Hey ${context.customerName || 'there'}! 🌟 Welcome to **Shambhavi Water Services** — Lucknow's fastest and freshest water delivery! 💧\n\nI'm your **Friendly AI Guide**, here to help you order our pure drinking water:\n\n• 📦 **Our Products & Pricing**:\n  - **1L Bottle**: ₹10 per unit\n  - **2L Bottle**: ₹20 per unit\n  - **18L Can**: ₹40 per unit\n  - **20L Can**: ₹40 per unit\n• 🧮 **Water Calculator**: Tell me how many people you have to calculate your daily jars!\n• 🚚 **Fast Delivery**: 2–4 hour delivery right to your doorstep in Lucknow.\n• 💎 **8-Stage RO+UV Purity**: 100% safe, mineral-balanced water.\n\nWhich product can I deliver to you today? 😊`,
       type: 'text',
       toolCalls: [],
       sessionId,
@@ -270,10 +270,10 @@ async function processWithRuleEngine(userMessage, context, sessionId) {
       toolCalls.push({ tool: 'calculateCart', args: { items: [{ productId: product.id, quantity: qty }] }, result: cart });
 
       let upsellMessage = '';
-      if (product.size === '20L' && qty < 10) {
-        upsellMessage = `\n\n💡 **AI Smart Upsell**: Need a dispenser pump? Add one for just ₹199 to make dispensing easy. Alternatively, upgrade to a weekly subscription and save 25% on this order!`;
-      } else if (product.name.toLowerCase().includes('bottle') || product.size === '1L' || product.size === '2L' || product.size === '5L') {
-        upsellMessage = `\n\n💡 **AI Smart Upsell**: Hosting an event? Add a 20L jar for just ₹40 for complete hydration coverage.`;
+      if (product.size === '20L' || product.name.includes('20L') || product.name.includes('18L')) {
+        upsellMessage = `\n\n💡 **AI Smart Upsell**: Need portable water for travel or quick use? Add a 1L Bottle for just ₹10 or a 2L Bottle for ₹20!`;
+      } else if (product.name.toLowerCase().includes('bottle') || product.size === '1L' || product.size === '2L') {
+        upsellMessage = `\n\n💡 **AI Smart Upsell**: Need more water for home or office? Add an 18L Can or 20L Can for just ₹40!`;
       }
 
       return {
@@ -421,23 +421,23 @@ async function processWithRuleEngine(userMessage, context, sessionId) {
   }
 
   // 10. PRODUCT CATALOG & PRICING
-  if (/\b(show products|go to products|open catalog|browse items|shop products|view products|product page|price list|rates|rate list|price batao|kitne ka hai|rate kya hai|water bottle|bottles|dispenser|stand|pump)\b/i.test(msg)) {
+  if (/\b(show products|go to products|open catalog|browse items|shop products|view products|product page|price list|rates|rate list|price batao|kitne ka hai|rate kya hai|water bottle|bottles|dispenser|can|jar|pani|price)\b/i.test(msg)) {
     const result = await executeTool('searchProducts', {});
     toolCalls.push({ tool: 'searchProducts', args: {}, result });
-    const productList = result.products?.map(p =>
-      `• **${p.name}** (${p.size || 'Unit'}) — **₹${p.price}**${p.subscriptionAvailable ? ` *(Subscription: ₹${p.subscriptionPrice})*` : ''}`
+    const productList = (result.products || []).slice(0, 4).map(p =>
+      `• **${p.name}** (${p.size || 'Unit'}) — **₹${p.price}**`
     ).join('\n');
 
     return {
-      response: `📦 **Shambhavi Water Products & Pricing**\n\n${productList}\n\nTap below to explore our full product catalog or reply with what you need!`,
+      response: `📦 **Shambhavi Pure Water Products & Pricing**\n\n${productList}\n\nTap below to explore our products or reply with what you need!`,
       type: 'PAGE_NAVIGATION',
       data: {
-        title: 'Product Catalog & Pricing',
+        title: 'Pure Water Products',
         route: '/products',
-        badge: 'Shop',
-        icon: '📦',
-        desc: 'Browse all 20L jars, 10L cans, 1L/2L/5L bottles & dispenser accessories',
-        actionText: 'Explore Catalog',
+        badge: 'Products',
+        icon: '💧',
+        desc: '1L Bottle (₹10), 2L Bottle (₹20), 18L Can (₹40), 20L Can (₹40)',
+        actionText: 'View Products',
       },
       toolCalls,
       sessionId,
@@ -661,15 +661,15 @@ async function processWithRuleEngine(userMessage, context, sessionId) {
   }
 
   // General Products
-  if (/\b(product|products|catalog|what do you have|water bottle|bottles|dispenser|stand|pump)\b/i.test(msg)) {
+  if (/\b(product|products|catalog|what do you have|water bottle|bottles|dispenser|can|jar)\b/i.test(msg)) {
     const result = await executeTool('searchProducts', {});
     toolCalls.push({ tool: 'searchProducts', args: {}, result });
-    const productList = result.products?.map(p =>
-      `• **${p.name}** (${p.size || 'Unit'}) — **₹${p.price}**${p.subscriptionAvailable ? ` *(Subscription: ₹${p.subscriptionPrice})*` : ''}`
+    const productList = (result.products || []).slice(0, 4).map(p =>
+      `• **${p.name}** (${p.size || 'Unit'}) — **₹${p.price}**`
     ).join('\n');
 
     return {
-      response: `Here are our available water products and accessories:\n\n${productList}\n\nWhich product would you like to order or explore? (e.g. *"I want 2 jars of 20L"* or *"Show subscription plans"*).`,
+      response: `Here are our 4 pure water products:\n\n${productList}\n\nWhich product would you like to order? (e.g. *"I want 1 jar of 20L"* or *"Order 2 bottles of 1L"*).`,
       type: 'text',
       toolCalls,
       sessionId,
