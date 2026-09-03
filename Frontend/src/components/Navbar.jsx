@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { FiDroplet, FiMenu, FiX, FiSun, FiMoon, FiUser } from 'react-icons/fi';
+import { FiDroplet, FiMenu, FiX, FiSun, FiMoon, FiUser, FiGrid, FiLogOut } from 'react-icons/fi';
 import { useAuth } from '../context/AuthContext';
 import BackButton from './BackButton';
 
@@ -196,19 +196,32 @@ export default function Navbar() {
                 {theme === 'light' ? <><FiMoon size={16} /> Dark Mode</> : <><FiSun size={16} /> Light Mode</>}
               </button>
               {user ? (
-                <div className="grid grid-cols-2 gap-2 pt-1">
-                  <Link 
-                    to={user.role === 'customer' ? '/portal' : '/admin'} 
-                    onClick={() => setMobileOpen(false)} 
-                    className="btn-primary text-sm py-2.5 px-3 rounded-xl flex items-center justify-center gap-1.5 font-bold whitespace-nowrap"
-                  >
-                    <FiUser size={16} /> Dashboard
-                  </Link>
+                <div className="space-y-2 pt-1">
+                  <div className="grid grid-cols-2 gap-2">
+                    <Link 
+                      to={user.role === 'customer' ? '/portal' : '/admin'} 
+                      onClick={() => setMobileOpen(false)} 
+                      className="btn-primary text-sm py-2.5 px-3 rounded-xl flex items-center justify-center gap-1.5 font-bold whitespace-nowrap shadow-sm"
+                    >
+                      <FiGrid size={16} /> Dashboard
+                    </Link>
+                    <Link 
+                      to={user.role === 'customer' ? '/portal/profile' : '/admin'} 
+                      onClick={() => setMobileOpen(false)} 
+                      className="btn-outline text-sm py-2.5 px-3 rounded-xl flex items-center justify-center gap-1.5 font-bold whitespace-nowrap shadow-sm"
+                      style={{
+                        borderColor: theme === 'light' ? 'rgba(0,0,0,0.2)' : 'rgba(255,255,255,0.3)',
+                        color: theme === 'light' ? '#334155' : 'white'
+                      }}
+                    >
+                      <FiUser size={16} /> My Profile
+                    </Link>
+                  </div>
                   <button 
                     onClick={() => { logout(); setMobileOpen(false); }} 
-                    className="btn-outline text-sm py-2.5 px-3 rounded-xl flex items-center justify-center font-bold text-red-400 border-red-500/30 hover:bg-red-500/10 cursor-pointer whitespace-nowrap"
+                    className="w-full btn-outline text-sm py-2.5 px-3 rounded-xl flex items-center justify-center font-bold text-red-400 border-red-500/30 hover:bg-red-500/10 cursor-pointer"
                   >
-                    Logout
+                    <FiLogOut size={16} className="mr-1.5" /> Logout
                   </button>
                 </div>
               ) : (
