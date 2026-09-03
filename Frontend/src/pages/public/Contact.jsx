@@ -47,7 +47,7 @@ export default function Contact() {
             <div className="space-y-5">
               {[
                 { icon: FiPhone, title: 'Phone & WhatsApp', info: '+91 73111 79993', sub: 'Mon–Sat 8AM–8PM • Instant WhatsApp Support', link: 'https://wa.me/917311179993?text=hi%20i%20saw%20your%20website%20i%20need%20water%20bottel' },
-                { icon: FiMail, title: 'Email', info: 'my2387569@gmail.com', sub: 'We reply within 24 hours', link: 'mailto:my2387569@gmail.com' },
+                { icon: FiMail, title: 'Email', info: 'shambhavi73@gmail.com', sub: 'We reply within 24 hours', link: 'mailto:shambhavi73@gmail.com' },
                 { icon: FiMapPin, title: 'Address', info: '44 Radhapuram Colony, Matiyari', sub: 'Lucknow, Uttar Pradesh' },
               ].map(({ icon: Icon, title, info, sub, link }) => (
                 <div key={title} className="glass-card rounded-2xl p-6 flex gap-5">

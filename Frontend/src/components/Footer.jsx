@@ -76,7 +76,7 @@ export default function Footer() {
               </li>
               <li className="flex items-center gap-3">
                 <FiMail className="text-cyan-400 shrink-0" size={15} />
-                <a href="mailto:my2387569@gmail.com" className="text-slate-400 hover:text-cyan-400 text-sm transition-colors">my2387569@gmail.com</a>
+                <a href="mailto:shambhavi73@gmail.com" className="text-slate-400 hover:text-cyan-400 text-sm transition-colors">shambhavi73@gmail.com</a>
               </li>
             </ul>
           </div>

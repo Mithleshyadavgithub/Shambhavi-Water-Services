@@ -196,21 +196,25 @@ export default function Navbar() {
                 {theme === 'light' ? <><FiMoon size={16} /> Dark Mode</> : <><FiSun size={16} /> Light Mode</>}
               </button>
               {user ? (
-                <div className="flex gap-2">
-                  <Link to="/portal/profile" onClick={() => setMobileOpen(false)} className="btn-outline text-sm py-2 px-3 rounded-lg flex items-center justify-center">
-                    <FiUser size={18} className={theme === 'light' ? 'text-slate-600' : ''} />
+                <div className="grid grid-cols-2 gap-2 pt-1">
+                  <Link 
+                    to={user.role === 'customer' ? '/portal' : '/admin'} 
+                    onClick={() => setMobileOpen(false)} 
+                    className="btn-primary text-sm py-2.5 px-3 rounded-xl flex items-center justify-center gap-1.5 font-bold whitespace-nowrap"
+                  >
+                    <FiUser size={16} /> Dashboard
                   </Link>
-                  <Link to={user.role === 'customer' ? '/portal' : '/admin'} onClick={() => setMobileOpen(false)} className="btn-primary text-sm py-2 px-4 rounded-lg flex-1 text-center font-bold">
-                    Dashboard
-                  </Link>
-                  <button onClick={() => { logout(); setMobileOpen(false); }} className="btn-outline text-sm py-2 px-4 rounded-lg flex-1 text-center text-red-400 border-red-500/20 cursor-pointer">
+                  <button 
+                    onClick={() => { logout(); setMobileOpen(false); }} 
+                    className="btn-outline text-sm py-2.5 px-3 rounded-xl flex items-center justify-center font-bold text-red-400 border-red-500/30 hover:bg-red-500/10 cursor-pointer whitespace-nowrap"
+                  >
                     Logout
                   </button>
                 </div>
               ) : (
-                <div className="flex gap-3">
-                  <Link to="/login" onClick={() => setMobileOpen(false)} className="btn-outline text-sm py-2 px-4 rounded-lg flex-1 text-center">Login</Link>
-                  <Link to="/register" onClick={() => setMobileOpen(false)} className="btn-primary text-sm py-2 px-4 rounded-lg flex-1 text-center">Register</Link>
+                <div className="grid grid-cols-2 gap-2 pt-1">
+                  <Link to="/login" onClick={() => setMobileOpen(false)} className="btn-outline text-sm py-2.5 px-4 rounded-xl text-center font-bold">Login</Link>
+                  <Link to="/register" onClick={() => setMobileOpen(false)} className="btn-primary text-sm py-2.5 px-4 rounded-xl text-center font-bold">Register</Link>
                 </div>
               )}
             </div>

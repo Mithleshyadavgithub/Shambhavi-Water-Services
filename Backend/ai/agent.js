@@ -572,7 +572,7 @@ async function processWithRuleEngine(userMessage, context, sessionId) {
   // 18. CONTACT & SUPPORT
   if (/\b(contact|phone|helpline|support number|address|location|office|emergency|call|whatsapp|number chahiye|customer care|helpline number)\b/i.test(msg)) {
     return {
-      response: `📞 **Contact Shambhavi Water Support**\n\n• **24/7 Helpline**: +91 98765 43210\n• **WhatsApp Support**: +91 98765 43210\n• **Email**: support@shambhaviwater.com\n• **Hub Address**: Karbala Bazar / Gomti Nagar, Lucknow, UP\n• **Delivery Hours**: 6:00 AM – 9:00 PM (All 7 Days)`,
+      response: `📞 **Contact Shambhavi Water Support**\n\n• **Phone & WhatsApp**: +91 73111 79993\n• **Email**: shambhavi73@gmail.com\n• **Address**: 44 Radhapuram Colony, Matiyari, Lucknow, Uttar Pradesh\n• **Delivery Hours**: 6:00 AM – 9:00 PM (All 7 Days)`,
       type: 'PAGE_NAVIGATION',
       data: {
         title: 'Contact Us & 24/7 Support',
